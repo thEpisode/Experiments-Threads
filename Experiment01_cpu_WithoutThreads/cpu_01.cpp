@@ -24,7 +24,7 @@ int main()
     int i = 0;
     while (true)
     {
-        if (i < 1000000000)
+        if (i < 14000000)
         {
             int rval = randGen(10, 50);
         }
