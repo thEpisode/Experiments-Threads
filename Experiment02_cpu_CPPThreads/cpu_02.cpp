@@ -17,7 +17,8 @@ using namespace std::chrono;
 mutex cout_mtx;
 
 int randGen(const int& min, const int& max) {
-    static thread_local mt19937 generator(hash<thread::id>()(this_thread::get_id()));
+	std::random_device device;
+    static thread_local mt19937 generator(device());
     uniform_int_distribution<int> distribution(min, max);
     return distribution(generator);
 }
