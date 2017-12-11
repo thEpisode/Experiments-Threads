@@ -14,9 +14,7 @@ using namespace std::chrono;
 
 int randGen(const int &min, const int &max)
 {
-	std::random_device device;
-	static thread_local mt19937 generator(device());
-	//printf("%d|", device());
+	static thread_local mt19937 generator(0);
 	uniform_int_distribution<int> distribution(min, max);
 	return distribution(generator);
 }
