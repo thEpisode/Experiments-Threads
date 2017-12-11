@@ -1,37 +1,43 @@
-#include <pthread.h>
+#include <stdio.h>
 #include <stdlib.h>
+#include <pthread.h>
 
 #define NUM_THREADS 5
 
-static pthread_mutex_t func_mutex = PTHREAD_MUTEX_INITIALIZER;
+static pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
-void func(){
-  pthread_mutex_lock(&func_mutex);
+void *worker(void* arg);
 
-  // Do something
+int main(int argc, char **argv)
+{
+	pthread_t threads[NUM_THREADS];
+	int thread_args[NUM_THREADS];
+	int result_code;
 
-  pthread_mutex_unlock(&func_mutex);
+	for (unsigned int i = 0; i < NUM_THREADS; ++i)
+	{
+		/// Last argument is to pass in worker function
+		if ((result_code = pthread_create(&threads[i], NULL, worker, NULL)))
+		{
+			printf("Thread creation failed: %d\n", result_code);
+		}
+	}
+	for (int i = 0; i < NUM_THREADS; ++i)
+	{
+		result_code = pthread_join(threads[i], 0);
+	}
+
+	exit(0);
 }
 
-void* worker() {
+void *worker(void* arg)
+{
 
-  // More business logic
+	pthread_mutex_lock(&mutex);
 
-  return 0;
-}
+	// Do something
 
-int main(int argc, char** argv){
-  pthread_t threads[NUM_THREADS];
-  int thread_args[NUM_THREADS];
-  int result_code;
+	pthread_mutex_unlock(&mutex);
 
-  for(unsigned int i = 0; i < NUM_THREADS; ++i){
-    thread_args[i] = i;
-    result_code = pthread_create(&threads[i], 0, worker, NULL);
-  }
-  for(int i = 0; i < NUM_THREADS; ++i){
-    result_code = pthread_join(threads[i], 0);
-  }
-
-  exit(0);
+	return 0;
 }

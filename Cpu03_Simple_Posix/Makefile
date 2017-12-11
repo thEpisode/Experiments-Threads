@@ -1,15 +1,16 @@
+
 GCC := g++
 
-OUTPUT := posix
+OUTPUT := cpu_posix
 SOURCES := $(wildcard *.cpp)
-GCCFLAGS := -std=c++11 -pthread
+CCFLAGS := -std=c++11 -pthread
 
-ALL: $(OUTPUT)
-
+all: $(OUTPUT)
+	
 $(OUTPUT):
-	$(GCC) -o $(OUTPUT) $(GCCFLAGS) $(SOURCES)
-
+	$(GCC) -o $(OUTPUT) $(CCFLAGS) $(SOURCES)
+	
 clean:
 	rm $(OUTPUT)
-
+	
 .PHONY: all
