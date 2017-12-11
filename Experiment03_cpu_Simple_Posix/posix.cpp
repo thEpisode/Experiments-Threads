@@ -21,7 +21,6 @@ int randGen(const int &min, const int &max);
 int main(int argc, char **argv)
 {
 	high_resolution_clock::time_point t1 = high_resolution_clock::now();
-    thread threads[NUM_THREADS];
 
 	pthread_t threads[NUM_THREADS];
 	int thread_args[NUM_THREADS];
@@ -73,7 +72,8 @@ void *worker(void *arg)
 
 int randGen(const int &min, const int &max)
 {
-	static thread_local mt19937 generator(hash<thread::id>()(this_thread::get_id()));
+	std::random_device device;
+	static thread_local mt19937 generator(device());
 	uniform_int_distribution<int> distribution(min, max);
 	return distribution(generator);
 }
