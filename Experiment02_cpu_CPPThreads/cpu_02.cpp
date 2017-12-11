@@ -27,7 +27,7 @@ void threadFnc(int tid)
     int i = 0;
     while (true)
     {
-        if (i < 1000000000 / NUM_THREADS)
+        if (i < 14000000 / NUM_THREADS)
         {
             int rval = randGen(10, 50);
         }
