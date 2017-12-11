@@ -1,7 +1,7 @@
 
 GCC := g++
 
-OUTPUT := cpu_01
+OUTPUT := experiment
 SOURCES := $(wildcard *.cpp)
 CCFLAGS := -std=c++11 -pthread
 
